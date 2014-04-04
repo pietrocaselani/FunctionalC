@@ -1,0 +1,22 @@
+#Exclude the build directory
+build/*
+ 
+#Exclude user-specific XCode 3 and 4 files
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+*.xcworkspace
+*.xcodeproj
+xcuserdata
+
+#Astah Backup Files
+*.bak
+
+#Other
+.DS_Store
+tmp
+out
+*.1
