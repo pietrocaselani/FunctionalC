@@ -12,7 +12,8 @@
 #include "strings.h"
 
 void emptyLines(int lines) {
-    for (int i = 0; i < lines; i++) printf("\n");
+    int i;
+    for (i = 0; i < lines; i++) printf("\n");
 }
 
 int compareNames(const void *a, const void *b) {
@@ -36,46 +37,46 @@ void testNames() {
     
     lsort(list, compareNames);
     
-    lforEach(list, e) {
+    lforEach(list, e, {
         printf("%s\n", e);
-    }
+    })
     
     emptyLines(2);
     
     lreplace(list, 2, "Pietro Caselani");
     
-    lforEach(list, e) printf("%s\n", e);
+    lforEach(list, e, printf("%s\n", e););
     
     emptyLines(2);
     
     lfilter(list, name, strlen(name) > 5)
     
-    lforEach(list, e) printf("%s\n", e);
+    lforEach(list, e, printf("%s\n", e);)
     
     emptyLines(2);
     
-    lfind(list, e, x, strcmp(e, "Pietro") == 0)
+    lfind(list, e, x, strcmp(e, "Guilherme") == 0)
     printf("Find = %s\n", x);
     
     emptyLines(2);
     
-    lindexOf(list, n, pcIndex, strcmp(n, "Pietro") == 0)
+    lindexOf(list, n, pcIndex, strcmp(n, "Pietro Caselani") == 0)
     printf("%d\n\n", pcIndex);
     
     emptyLines(2);
     
-    lcontains(list, e, c, strcmp(e, "XPietro") == 0)
-    printf(c ? "Tem Pietro" : "Não tem Pietro");
+    lcontains(list, e, c, strcmp(e, "Felipe") == 0)
+    printf(c ? "Tem Felipe" : "Não tem Felipe");
     emptyLines(2);
     
-    lforEach(list, e) printf("%s\n", e);
+    lforEach(list, e, printf("%s\n", e);)
     
     printf("Removendo o Pietro...\n\n");
     lremoveElement(list, name, strcmp(name, "Pietro") == 0)
     
-    lforEach(list, elemento) printf("%s\n", elemento);
+    lforEach(list, elemento, printf("%s\n", elemento);)
     
-    lforEach(list, elemento) printf("%s\n", elemento);
+    lforEach(list, elemento, printf("%s\n", elemento);)
     
     emptyLines(3);
     printf("Test map nomes para lengths!");
@@ -83,10 +84,10 @@ void testNames() {
     
     lmap(list, name, lengths, strlen(name));
     
-    lforEachIndex(lengths, len, lenIndex) {
+    lforEachIndex(lengths, len, lenIndex, {
         char *name = lgetElement(list, (int) lenIndex);
         printf("%s tem %d chars\n", name, (int) len);
-    }
+    })
     
     releaseList(list);
 }
@@ -102,13 +103,13 @@ void testNumbers() {
     
     laddAll(numbers, 3, 10, 7, 9);
     
-    lforEach(numbers, n) printf("%d\n", (int) n);
+    lforEach(numbers, n, printf("%d\n", (int) n);)
     
     lreduce(numbers, n, n1, 0, (int)n + (int)n1);
     printf("Soma = %d\n\n", (int) n);
     
     lsort(numbers, compareNumbers);
-    lforEach(numbers, n) printf("%d\n", (int) n);
+    lforEach(numbers, n, printf("%d\n", (int) n);)
     
     releaseList(numbers);
 }
@@ -116,7 +117,7 @@ void testNumbers() {
 void testArrayNames() {
     Array *array = newArrayWithElements(5, "PC", "Guilherme", "Pietro", "Fin", "Felipe");
     
-    aforEach(array, name) printf("%s\n", name);
+    aforEach(array, name, printf("%s\n", name);)
     
     emptyLines(2);
     
@@ -128,7 +129,7 @@ void testArrayNames() {
     
     asort(array, compareNames);
     
-    aforEachIndex(array, name, nameIndex) printf("%s no index %d\n", name, (int) nameIndex);
+    aforEachIndex(array, name, nameIndex, printf("%s no index %d\n", name, nameIndex);)
     
     emptyLines(2);
     
@@ -137,7 +138,7 @@ void testArrayNames() {
 
 int main(int argc, const char * argv[]) {
     testNames();
-//    testNumbers();
+    testNumbers();
 //    testArrayNames();
     
     return 0;

@@ -25,4 +25,4 @@ void lreplace(List*, int, void*);
 
 void* lgetElement(List*, int);
 
-void lsort(List*, Comparator);
+void lsort(List*, int (*)(const void *, const void *));

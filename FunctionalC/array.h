@@ -27,4 +27,4 @@ void areplace(Array*, int, void*);
 
 void* agetElement(Array*, int);
 
-void asort(Array*, Comparator);
+void asort(Array*, int (*)(const void *, const void *));

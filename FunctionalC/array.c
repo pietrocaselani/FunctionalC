@@ -115,7 +115,7 @@ void* agetElement(Array *array, int index) {
     return index < 0 || index >= array->size ? NULL : array->data[index];
 }
 
-void asort(Array *array, Comparator compFunc) {
+void asort(Array *array, int (*compFunc)(const void *, const void *)) {
     qsort(array->data, array->size, sizeof(array->data), compFunc);
 }
 

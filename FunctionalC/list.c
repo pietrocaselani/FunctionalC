@@ -143,15 +143,15 @@ void* lgetElement(List *list, int index) {
     return data;
 }
 
-void lsort(List *list, Comparator compFunc) {
-    int size = list->size;
+void lsort(List *list, int (*compFunc)(const void *, const void *)) {
+    int size = list->size, i;
     void **data = malloc(sizeof(void*) * size);
     
-    lforEachIndex(list, e, index) {
-        data[(int)index] = e;
-    }
+    lforEachIndex(list, e, index, {
+        data[index] = e;
+    })
     
     qsort(data, size, sizeof(data), compFunc);
     
-    for (int i = 0; i < size; i++) lreplace(list, i, data[i]);
+    for (i = 0; i < size; i++) lreplace(list, i, data[i]);
 }
