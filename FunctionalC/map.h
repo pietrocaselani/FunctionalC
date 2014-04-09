@@ -21,6 +21,7 @@ Map* newMapWithElements(int, ...);
 void releaseMap(Map*);
 
 int msize(Map*);
+int misEmpty(Map*);
 void mclear(Map*);
 
 void mput(Map*, void*, void*);

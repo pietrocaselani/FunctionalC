@@ -60,6 +60,10 @@ int msize(Map *map) {
     return asize(map->entries);
 }
 
+int misEmpty(Map *map) {
+    return aisEmpty(map->entries);
+}
+
 void mclear(Map *map) {
     aclear(map->entries);
 }

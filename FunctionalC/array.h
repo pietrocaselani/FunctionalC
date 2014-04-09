@@ -16,10 +16,12 @@ Array* newArrayWithElements(int, ...);
 void releaseArray(Array*);
 
 int asize(Array*);
+int aisEmpty(Array*);
 
 void aaddElement(Array*, void*);
 void aaddAtIndex(Array*, int, void*);
 void aaddAll(Array*, int, ...);
+void aappend(Array*, int, void*);
 void aremoveAtIndex(Array*, int);
 void aclear(Array*);
 

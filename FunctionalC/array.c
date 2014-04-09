@@ -12,6 +12,7 @@
 
 #define kDefaultSize    12
 
+void reallocData(Array*);
 void internalRemove(Array*, int, int);
 
 struct Array {
@@ -58,14 +59,17 @@ int asize(Array *array) {
     return array->size;
 }
 
+int aisEmpty(Array *array) {
+    return array->size == 0;
+}
+
 void aaddElement(Array *array, void *element) {
     aaddAtIndex(array, array->size, element);
 }
 
 void aaddAtIndex(Array *array, int index, void *element) {
-    if (index >= array->capacity) {
-        array->data = realloc(array->data, array->capacity * 2);
-        array->capacity *= 2;
+    if (index + 1 >= array->capacity) {
+        reallocData(array);
     }
     
     array->data[index] = element;
@@ -81,6 +85,23 @@ void aaddAll(Array *array, int count, ...) {
     
     va_end(arguments);
 }
+
+void aappend(Array *array, int index, void *element) {
+    if (index < 0 || index > array->size) return;
+    
+    if (index + 1 >= array->capacity) {
+        reallocData(array);
+    }
+    
+    int i;
+    for (i = array->size - 1; i >= index; i--) {
+        array->data[i + 1] = array->data[i];
+    }
+    
+    array->data[index] = element;
+    array->size++;
+}
+
 void aremoveAtIndex(Array *array, int index) {
     if (index < 0 || index >= array->size) return;
     
@@ -103,7 +124,6 @@ void aclear(Array *array) {
 }
 
 void areplace(Array *array, int index, void *element) {
-    //TODO
     if (array->size == 0 || index < 0 || index >= array->size) return;
     
     array->data[index] = element;
@@ -115,6 +135,12 @@ void* agetElement(Array *array, int index) {
 
 void asort(Array *array, int (*compFunc)(const void *, const void *)) {
     qsort(array->data, array->size, sizeof(array->data), compFunc);
+}
+
+void reallocData(Array *array) {
+    int newCapacity = array->capacity * 2;
+    array->data = realloc(array->data, sizeof(void*) * newCapacity);
+    array->capacity *= 2;
 }
 
 void internalRemove(Array *array, int fromIndex, int toIndex) {

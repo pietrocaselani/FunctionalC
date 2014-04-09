@@ -15,6 +15,7 @@ List* newListWithElements(int, ...);
 void releaseList(List*);
 
 int lsize(List*);
+int lisEmpty(List*);
 
 void laddElement(List*, void*);
 void laddAll(List*, int, ...);

@@ -10,7 +10,9 @@
 #include "list.h"
 #include "array.h"
 #include "map.h"
+#include "queue.h"
 #include "strings.h"
+#include "stdlib.h"
 
 void emptyLines(int lines) {
     int i;
@@ -128,8 +130,6 @@ void testArrayNames() {
     
     printf("%s\n", namePC);
     
-    asort(array, compareNames);
-    
     aforEachIndex(array, name, nameIndex, printf("%s no index %d\n", name, nameIndex);)
     
     emptyLines(2);
@@ -139,8 +139,55 @@ void testArrayNames() {
         printf("%s\n", name);
     });
     
+    emptyLines(4);
+    
+    aforEach(array, name, printf("%s\n", name);)
+    
+    emptyLines(2);
+    
+    aappend(array, 2, "Rodolfo");
+    
+    aforEach(array, name, printf("%s\n", name);)
+    
+    emptyLines(2);
+    
+    aappend(array, 0, "Mirim");
+    
+    aforEach(array, name, printf("%s\n", name);)
+    
+    emptyLines(2);
+    
+    aappend(array, asize(array), "Natan");
+    aappend(array, asize(array), "Pati");
+    aappend(array, asize(array), "Rogian");
+    
+    aforEach(array, name, printf("%s\n", name);)
     
     releaseArray(array);
+}
+
+void testBigArray() {
+    int i;
+    
+    Array *a = newArray();
+    
+    for (i = 0; i < 100; i++) {
+        int *x = malloc(sizeof(int));
+        *x = i * 2;
+        aaddElement(a, x);
+    }
+    
+    printf("Size = %d\n\n\n", asize(a));
+    
+    aforEachIndex(a, n, i, {
+        printf("a[%d] = %d\n", i, *(int*) n);
+    })
+    
+    aforEach(a, n, {
+        free(n);
+    })
+    
+    releaseArray(a);
 }
 
 void testMap() {
@@ -176,11 +223,42 @@ void testMap() {
     releaseMap(map);
 }
 
+void testQueue() {
+    int size, element;
+    
+    Queue *queue = newQueue();
+    
+    qadd(queue, (void*) 3);
+    qadd(queue, (void*) 5);
+    qadd(queue, (void*) 8);
+    qadd(queue, (void*) 12);
+    
+    size = qsize(queue);
+    printf("Queue size = %d\n\n", size);
+    
+    element = (int) qpeek(queue);
+    printf("Elemento no topo sem remover: %d\n\n", element);
+    
+    size = qsize(queue);
+    printf("Queue size = %d\n\n", size);
+    
+    element = (int) qpool(queue);
+    printf("Elemento no topo removido: %d\n\n", element);
+    
+    size = qsize(queue);
+    printf("Queue size = %d\n\n", size);
+    
+    element = (int) qpeek(queue);
+    printf("Elemento no topo sem remover: %d\n\n", element);
+}
+
 int main(int argc, const char * argv[]) {
-//    testNames();
-//    testNumbers();
-//    testArrayNames();    
+    testNames();
+    testNumbers();
+    testArrayNames();
+    testBigArray();
     testMap();
+    testQueue();
     
     return 0;
 }

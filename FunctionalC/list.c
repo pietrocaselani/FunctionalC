@@ -53,6 +53,10 @@ int lsize(List *list) {
     return list->size;
 }
 
+int lisEmpty(List *list) {
+    return list->size == 0;
+}
+
 void laddElement(List *list, void *element) {
     Node *aux = malloc(sizeof(Node));
     aux->data = element;
