@@ -10,8 +10,6 @@
 #include "stdlib.h"
 #include "stdarg.h"
 
-#include <stdio.h>
-
 #define kDefaultSize    12
 
 void internalRemove(Array*, int, int);

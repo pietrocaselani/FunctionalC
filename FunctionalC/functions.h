@@ -24,11 +24,11 @@ for (index = 0; index < asize(array), e = agetElement(array, index); index++) { 
 
 #define literate(list, e, index, stop, block) \
 { int index, *stop; void *e; \
-for (index = 0, stop = 0; index < lsize(list), e = lgetElement(list, index), !stop; index++) { block } }
+for (index = 0, stop = 0; (index < lsize(list) || !stop), e = lgetElement(list, index); index++) { block } }
 
 #define aiterate(array, e, index, stop, block) \
-{ int index, *stop; void *e; \
-for (index = 0, stop = 0; index < asize(array), e = agetElement(array, index), !stop; index++) { block } }
+{ int index, stop; void *e; \
+for (index = 0, stop = 0, e = NULL; index < asize(array) && stop == 0 && (e = agetElement(array, index)) != NULL; index++) { block } }
 
 #define lfilter(list, e, predicate) \
 lforEach(list, e, { \
@@ -117,3 +117,22 @@ lforEach(list, aux, result = accumulator;)
 #define areduce(array, result, aux, identity, accumulator) \
 void *result = (void*) identity; \
 aforEach(array, aux, result = accumulator;)
+
+#define mget(map, outputV, k, predicate) \
+void *outputV = NULL; \
+{ void *k; \
+aiterate(mgetEntries(map), entry, index, stop, { \
+k = ((Entry*)entry)->key; \
+if (predicate) {stop = 1; outputV = ((Entry*) entry)->value; }});}
+
+#define mforEach(map, entryV, block) \
+{Entry *entryV; \
+aforEach(mgetEntries(map), e, { \
+entryV = (Entry*) e; block\
+})}
+
+#define mremove(map, k, predicate) \
+{ void *k; \
+mforEach(map, entry, { \
+k = entry->key; \
+if (predicate) { aremoveAtIndex(mgetEntries(map), index); break; }})}

@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "list.h"
 #include "array.h"
+#include "map.h"
 #include "strings.h"
 
 void emptyLines(int lines) {
@@ -133,13 +134,53 @@ void testArrayNames() {
     
     emptyLines(2);
     
+    aiterate(array, name, i, shouldStop, {
+        shouldStop = strcmp(name, "PC") == 0;
+        printf("%s\n", name);
+    });
+    
+    
     releaseArray(array);
 }
 
+void testMap() {
+    Map *map = newMap();
+    
+    mput(map, (void*) 1, "Um");
+    mput(map, (void*) 2, "Dois");
+    mput(map, (void*) 5, "Cinco");
+    mput(map, (void*) 3, "Três");
+    
+    mget(map, literal, chave, (int)chave == 2)
+    
+    printf("Valor = %s\n", literal);
+    
+    mforEach(map, entry, {
+        void *key = entry->key;
+        void *value = entry->value;
+        
+        printf("%d -> %s\n", (int) key, value);
+    });
+    
+    mremove(map, key, (int) key == 2)
+    
+    emptyLines(2);
+    
+    mforEach(map, entry, {
+        void *key = entry->key;
+        void *value = entry->value;
+        
+        printf("%d -> %s\n", (int) key, value);
+    });
+    
+    releaseMap(map);
+}
+
 int main(int argc, const char * argv[]) {
-    testNames();
-    testNumbers();
-//    testArrayNames();
+//    testNames();
+//    testNumbers();
+//    testArrayNames();    
+    testMap();
     
     return 0;
 }
