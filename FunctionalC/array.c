@@ -146,9 +146,11 @@ void asort(Array *array, int (*compFunc)(const void *, const void *)) {
 }
 
 void reallocData(Array *array) {
-    int newCapacity = array->capacity * 2;
+    int currentCapacity = array->capacity;
+    int increment = (currentCapacity < (kDefaultSize / 2) ? kDefaultSize : currentCapacity >> 1);
+    int newCapacity = currentCapacity + increment;
     array->data = realloc(array->data, sizeof(void*) * newCapacity);
-    array->capacity *= 2;
+    array->capacity = newCapacity;
 }
 
 void internalRemove(Array *array, int fromIndex, int toIndex) {
