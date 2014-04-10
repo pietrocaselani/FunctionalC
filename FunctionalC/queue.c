@@ -10,8 +10,6 @@
 #include "array.h"
 #include "stdlib.h"
 
-#define kDefaultSize 12
-
 struct Queue {
     Array *elements;
 };

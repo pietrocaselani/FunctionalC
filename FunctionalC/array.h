@@ -28,5 +28,7 @@ void aclear(Array*);
 void areplace(Array*, int, void*);
 
 void* agetElement(Array*, int);
+void* afirst(Array*);
+void* alast(Array*);
 
 void asort(Array*, int (*)(const void *, const void *));

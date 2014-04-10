@@ -11,6 +11,7 @@
 #include "array.h"
 #include "map.h"
 #include "queue.h"
+#include "stack.h"
 #include "strings.h"
 #include "stdlib.h"
 
@@ -252,6 +253,56 @@ void testQueue() {
     printf("Elemento no topo sem remover: %d\n\n", element);
 }
 
+void testStack() {
+    int size, element;
+    
+    Stack *stack = newStack();
+    
+    spush(stack, (void*) 3);
+    spush(stack, (void*) 5);
+    spush(stack, (void*) 8);
+    spush(stack, (void*) 12);
+    
+    size = ssize(stack);
+    
+    printf("Stack size = %d\n", size);
+    
+    element = (int) speek(stack);
+    
+    printf("Peek = %d\n", element);
+    
+    size = ssize(stack);
+    
+    printf("Stack size = %d\n", size);
+    
+    element = (int) spop(stack);
+    size = ssize(stack);
+    printf("Pop = %d\n", element);
+    printf("Stack size = %d\n", size);
+    
+    element = (int) spop(stack);
+    size = ssize(stack);
+    printf("Peek = %d\n", element);
+    printf("Stack size = %d\n", size);
+    
+    element = (int) spop(stack);
+    size = ssize(stack);
+    printf("Peek = %d\n", element);
+    printf("Stack size = %d\n", size);
+    
+    element = (int) spop(stack);
+    size = ssize(stack);
+    printf("Peek = %d\n", element);
+    printf("Stack size = %d\n", size);
+    
+    element = (int) spop(stack);
+    size = ssize(stack);
+    printf("Peek = %d\n", element);
+    printf("Stack size = %d\n", size);
+    
+    releaseStack(stack);
+}
+
 int main(int argc, const char * argv[]) {
     testNames();
     testNumbers();
@@ -259,6 +310,7 @@ int main(int argc, const char * argv[]) {
     testBigArray();
     testMap();
     testQueue();
+    testStack();
     
     return 0;
 }

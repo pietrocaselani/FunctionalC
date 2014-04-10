@@ -133,6 +133,14 @@ void* agetElement(Array *array, int index) {
     return index < 0 || index >= array->size ? NULL : array->data[index];
 }
 
+void* afirst(Array *array) {
+    return agetElement(array, 0);
+}
+
+void* alast(Array *array) {
+    return agetElement(array, array->size - 1);
+}
+
 void asort(Array *array, int (*compFunc)(const void *, const void *)) {
     qsort(array->data, array->size, sizeof(array->data), compFunc);
 }
