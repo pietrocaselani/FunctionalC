@@ -45,5 +45,5 @@ int ssize(Stack *stack) {
 }
 
 int sisEmpty(Stack *stack) {
-    return asize(stack->elements) == 0;
+    return aisEmpty(stack->elements);
 }

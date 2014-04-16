@@ -13,6 +13,7 @@
 #include "queue.h"
 #include "stack.h"
 #include "linkedqueue.h"
+#include "linkedstack.h"
 #include "strings.h"
 #include "stdlib.h"
 
@@ -370,18 +371,69 @@ void testStack() {
     releaseStack(stack);
 }
 
-int main(int argc, const char * argv[]) {
-//    testSimpleList();
-//    testNamesList();
-//    testNumbersList();
+void testLinkedStack() {
+    int size, element;
     
-//    testNamesArray();
-//    testBigArray();
-//    testMap();
-//    testQueue();
-//    testStack();
+    LinkedStack *stack = newLinkedStack();
+    
+    lspush(stack, (void*) 3);
+    lspush(stack, (void*) 5);
+    lspush(stack, (void*) 8);
+    lspush(stack, (void*) 12);
+    
+    size = lssize(stack);
+    
+    printf("Stack size = %d\n", size);
+    
+    element = (int) lspeek(stack);
+    
+    printf("Peek = %d\n", element);
+    
+    size = lssize(stack);
+    
+    printf("Stack size = %d\n", size);
+    
+    element = (int) lspop(stack);
+    size = lssize(stack);
+    printf("Pop = %d\n", element);
+    printf("Stack size = %d\n", size);
+    
+    element = (int) lspop(stack);
+    size = lssize(stack);
+    printf("Peek = %d\n", element);
+    printf("Stack size = %d\n", size);
+    
+    element = (int) lspop(stack);
+    size = lssize(stack);
+    printf("Peek = %d\n", element);
+    printf("Stack size = %d\n", size);
+    
+    element = (int) lspop(stack);
+    size = lssize(stack);
+    printf("Peek = %d\n", element);
+    printf("Stack size = %d\n", size);
+    
+    element = (int) lspop(stack);
+    size = lssize(stack);
+    printf("Peek = %d\n", element);
+    printf("Stack size = %d\n", size);
+    
+    releaseLinkedStack(stack);
+}
+
+int main(int argc, const char * argv[]) {
+    testSimpleList();
+    testNamesList();
+    testNumbersList();
+    
+    testNamesArray();
+    testBigArray();
+    testMap();
+    testQueue();
+    testStack();
     
     testLinkedQueue();
+    testLinkedStack();
     
     return 0;
 }
