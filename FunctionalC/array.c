@@ -43,7 +43,7 @@ Array* newArrayWithElements(int count, ...) {
     va_start(arguments, count);
     int i;
     
-    for (i = 0; i < count; i++) aaddAtIndex(array, array->size, va_arg(arguments, void*));
+    for (i = 0; i < count; i++) aappend(array, array->size, va_arg(arguments, void*));
     
     va_end(arguments);
     
@@ -64,16 +64,7 @@ int aisEmpty(Array *array) {
 }
 
 void aaddElement(Array *array, void *element) {
-    aaddAtIndex(array, array->size, element);
-}
-
-void aaddAtIndex(Array *array, int index, void *element) {
-    if (index + 1 >= array->capacity) {
-        reallocData(array);
-    }
-    
-    array->data[index] = element;
-    array->size++;
+    aappend(array, array->size, element);
 }
 
 void aaddAll(Array *array, int count, ...) {
@@ -81,7 +72,7 @@ void aaddAll(Array *array, int count, ...) {
     va_start(arguments, count);
     int i;
     
-    for (i = 0; i < count; i++) aaddAtIndex(array, array->size, va_arg(arguments, void*));
+    for (i = 0; i < count; i++) aappend(array, array->size, va_arg(arguments, void*));
     
     va_end(arguments);
 }

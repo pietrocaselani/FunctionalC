@@ -58,23 +58,7 @@ int lisEmpty(List *list) {
 }
 
 void laddElement(List *list, void *element) {
-    Node *aux = malloc(sizeof(Node));
-    aux->data = element;
-    aux->next = NULL;
-    
-    if (list->size == 0) {
-        list->start = aux;
-    } else {
-        Node *current = list->start;
-        
-        while (current->next != NULL) {
-            current = current->next;
-        }
-        
-        current->next = aux;
-    }
-    
-    list->size++;
+    lappend(list, list->size, element);
 }
 
 void laddAll(List *list, int count, ...) {
@@ -82,9 +66,37 @@ void laddAll(List *list, int count, ...) {
     va_start(arguments, count);
 	int i;
     
-    for (i = 0; i < count; i++) laddElement(list, va_arg(arguments, void*));
+    for (i = 0; i < count; i++) lappend(list, list->size, va_arg(arguments, void*));
 	
 	va_end(arguments);
+}
+
+void lappend(List *list, int index, void *element) {
+    if (index < 0 || index > list->size) return;
+    
+    Node *aux = malloc(sizeof(Node));
+    aux->data = element;
+    aux->next = NULL;
+    
+    if (list->size == 0) {
+        list->start = aux;
+    } else {
+        Node *current = list->start, *prev = NULL;
+        int i = 0;
+        
+        while (i++ < index) {
+            prev = current;
+            current = current->next;
+        }
+        
+        aux->next = current;
+        
+        if (index == 0) list->start = aux;
+        
+        if (prev != NULL) prev->next = aux;
+    }
+    
+    list->size++;
 }
 
 void lremoveAtIndex(List *list, int index) {
@@ -145,6 +157,14 @@ void* lgetElement(List *list, int index) {
     }
     
     return data;
+}
+
+void* lfirst(List *list) {
+    return lgetElement(list, 0);
+}
+
+void* llast(List *list) {
+    return lgetElement(list, list->size - 1);
 }
 
 void lsort(List *list, int (*compFunc)(const void *, const void *)) {

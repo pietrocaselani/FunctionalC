@@ -12,6 +12,7 @@
 #include "map.h"
 #include "queue.h"
 #include "stack.h"
+#include "linkedqueue.h"
 #include "strings.h"
 #include "stdlib.h"
 
@@ -24,7 +25,28 @@ int compareNames(const void *a, const void *b) {
     return strcmp(b, a);
 }
 
-void testNames() {
+void testSimpleList() {
+    List *list = newList();
+    
+    printf(lisEmpty(list) ? "Vazia\n\n" : "Não vazia\n\n");
+    
+    laddElement(list, "Pietro");
+    laddElement(list, "Roger");
+    
+    lappend(list, 0, "Guilherme");
+    
+    lappend(list, 1, "Marcus");
+    
+    printf(lisEmpty(list) ? "Vazia\n\n" : "Não vazia\n\n");
+    
+    lforEach(list, name, {
+        printf("%s\n", name);
+    })
+    
+    releaseList(list);
+}
+
+void testNamesList() {
     void *data;
     List *list = newList();
     
@@ -102,7 +124,7 @@ int compareNumbers(const void *a, const void *b) {
     return a1 - b1;
 }
 
-void testNumbers() {
+void testNumbersList() {
     List *numbers = newListWithElements(5, 4, 1, 3, 5, 2);
     
     laddAll(numbers, 3, 10, 7, 9);
@@ -118,7 +140,7 @@ void testNumbers() {
     releaseList(numbers);
 }
 
-void testArrayNames() {
+void testNamesArray() {
     Array *array = newArrayWithElements(5, "PC", "Guilherme", "Pietro", "Fin", "Felipe");
     
     aforEach(array, name, printf("%s\n", name);)
@@ -251,6 +273,51 @@ void testQueue() {
     
     element = (int) qpeek(queue);
     printf("Elemento no topo sem remover: %d\n\n", element);
+    
+    releaseQueue(queue);
+}
+
+void testLinkedQueue() {
+    int size, element;
+    
+    LinkedQueue *queue = newLinkedQueue();
+    
+    lqadd(queue, (void*) 3);
+    lqadd(queue, (void*) 5);
+    lqadd(queue, (void*) 8);
+    lqadd(queue, (void*) 12);
+    
+    size = lqsize(queue);
+    printf("Queue size = %d\n\n", size);
+    
+    element = (int) lqpeek(queue);
+    printf("Elemento no topo sem remover: %d\n\n", element);
+    
+    size = lqsize(queue);
+    printf("Queue size = %d\n\n", size);
+    
+    element = (int) lqpool(queue);
+    printf("Elemento no topo removido: %d\n\n", element);
+    
+    size = lqsize(queue);
+    printf("Queue size = %d\n\n", size);
+    
+    element = (int) lqpeek(queue);
+    printf("Elemento no topo sem remover: %d\n\n", element);
+    
+    element = (int) lqpool(queue);
+    printf("Elemento no topo removido: %d\n\n", element);
+    
+    element = (int) lqpool(queue);
+    printf("Elemento no topo removido: %d\n\n", element);
+    
+    element = (int) lqpool(queue);
+    printf("Elemento no topo removido: %d\n\n", element);
+    
+    size = lqsize(queue);
+    printf("Queue size = %d\n\n", size);
+    
+    releaseLinkedQueue(queue);
 }
 
 void testStack() {
@@ -304,13 +371,17 @@ void testStack() {
 }
 
 int main(int argc, const char * argv[]) {
-    testNames();
-    testNumbers();
-    testArrayNames();
-    testBigArray();
-    testMap();
-    testQueue();
-    testStack();
+//    testSimpleList();
+//    testNamesList();
+//    testNumbersList();
+    
+//    testNamesArray();
+//    testBigArray();
+//    testMap();
+//    testQueue();
+//    testStack();
+    
+    testLinkedQueue();
     
     return 0;
 }

@@ -19,11 +19,14 @@ int lisEmpty(List*);
 
 void laddElement(List*, void*);
 void laddAll(List*, int, ...);
+void lappend(List*, int, void*);
 void lremoveAtIndex(List*, int);
 void lclear(List*);
 
 void lreplace(List*, int, void*);
 
 void* lgetElement(List*, int);
+void* lfirst(List*);
+void* llast(List*);
 
 void lsort(List*, int (*)(const void *, const void *));
